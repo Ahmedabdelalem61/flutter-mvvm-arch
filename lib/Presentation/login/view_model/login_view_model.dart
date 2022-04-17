@@ -11,8 +11,7 @@ class LoginViewModel extends BaseViewModel
 
   final LoginUseCase _loginUseCase ;
 
-  //LoginViewModel(this._loginUseCase);
-  LoginViewModel();
+  LoginViewModel(this._loginUseCase);
 
   final StreamController _passwordStreamController =
       StreamController<String>.broadcast();
