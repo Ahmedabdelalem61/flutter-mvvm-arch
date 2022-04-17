@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../resources/assets_manager.dart';
 import '../../resources/color_manager.dart';
+import '../../resources/routes_manager.dart';
 import '../../resources/strings_manager.dart';
 import '../../resources/values_manager.dart';
 import '../view_model/login_view_model.dart';
@@ -41,6 +42,7 @@ class _LoginViewState extends State<LoginView> {
 
   Widget _getContentWidget() {
     return Scaffold(
+      backgroundColor: ColorManager.white,
       body: Container(
         padding: const EdgeInsets.only(top: AppPadding.p100),
         color: ColorManager.white,
@@ -102,15 +104,45 @@ class _LoginViewState extends State<LoginView> {
                   child: StreamBuilder<bool>(
                       stream: _viewModel.outAreAllInputsValid,
                       builder: (context, snapshot) {
-                        return ElevatedButton(
-                            onPressed: (snapshot.data ?? false) //the first time the the ui get start may begin faster th the stream so null data should be default value at first
-                                ? () {
-                                    _viewModel.login();
-                                  }
-                                : null,
-                            child: const Text(AppStrings.login));
+                        return SizedBox(
+                          width: double.infinity,
+                          height: AppSize.s40,
+                          child: ElevatedButton(
+                              onPressed: (snapshot.data ?? false)
+                                  ? () {
+                                      _viewModel.login();
+                                    }
+                                  : null,
+                              child: const Text(AppStrings.login)),
+                        );
                       }),
                 ),
+                Padding(
+                    padding: const EdgeInsets.only(
+                        top: AppPadding.p8,
+                        left: AppPadding.p28,
+                        right: AppPadding.p28),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(
+                                context, Routes.forgotPasswordRoute);
+                          },
+                          child: Text(AppStrings.forgetPassword,
+                              style: Theme.of(context).textTheme.titleSmall),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(
+                                context, Routes.registerRoute);
+                          },
+                          child: Text(AppStrings.registerText,
+                              style: Theme.of(context).textTheme.titleSmall),
+                        )
+                      ],
+                    )),
               ],
             ),
           ),

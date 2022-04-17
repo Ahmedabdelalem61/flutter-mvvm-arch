@@ -36,8 +36,15 @@ class _OnboardingViewState extends State<OnboardingView> {
   Widget build(BuildContext context) {
     return StreamBuilder<SliderViewObject>(
         stream: _viewModel.outputSliderViewObject,
-        builder: (context, snapshot) => _getContentWidget(snapshot.data!));
+        builder: (context, snapshot) {
+          if(snapshot.hasData) {
+            return _getContentWidget(snapshot.data!);
+          }
+          return _loadingStream();
+        });
   }
+
+  Widget _loadingStream()=>const Scaffold(body: Center(child: Text('please wait!'),),);
 
   Widget _getContentWidget(SliderViewObject sliderViewObject) {
     return Scaffold(
