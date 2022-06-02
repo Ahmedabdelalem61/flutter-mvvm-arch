@@ -1,20 +1,19 @@
 import 'package:dio/dio.dart';
 import 'faiure.dart';
 
-class ErrorHandler implements Exception{
+class ErrorHandler implements Exception {
   late Failure failure;
 
-  ErrorHandler.handle(dynamic error){
-    if(error is DioError){
+  ErrorHandler.handle(dynamic error) {
+    if (error is DioError) {
       failure = _handleError(error);
-    }else{
+    } else {
       failure = DataSource.DEFAULT.getFailure();
     }
   }
 
   Failure _handleError(DioError error) {
-    switch(error.type){
-
+    switch (error.type) {
       case DioErrorType.connectTimeout:
         return DataSource.CONNECT_TIMEOUT.getFailure();
       case DioErrorType.sendTimeout:
@@ -23,10 +22,14 @@ class ErrorHandler implements Exception{
         return DataSource.RECIEVE_TIMEOUT.getFailure();
       // check if the response itself coming with null!!
       case DioErrorType.response:
-        if(error.response != null && error.response?.statusCode != null && error.response?.statusMessage!=null) {
-          return Failure(error.response?.statusCode??0, error.response?.statusMessage??'');
+        if (error.response != null &&
+            error.response?.statusCode != null &&
+            error.response?.statusMessage != null) {
+          return Failure(error.response?.statusCode ?? 0,
+              error.response?.statusMessage ?? "");
+        } else {
+          return DataSource.DEFAULT.getFailure();
         }
-        return DataSource.DEFAULT.getFailure();
       case DioErrorType.cancel:
         return DataSource.CANCEL.getFailure();
       case DioErrorType.other:
@@ -52,7 +55,7 @@ enum DataSource {
   DEFAULT
 }
 
-class ResponseCode{
+class ResponseCode {
   // remote status code
   static const int SUCCESS = 200; // success with data
   static const int NO_CONTENT = 201; // success with no data (no content)
@@ -70,7 +73,6 @@ class ResponseCode{
   static const int CACHE_ERROR = -5;
   static const int NO_INTERNET_CONNECTION = -6;
   static const int DEFAULT = -7;
-
 }
 
 class ResponseMessage {
@@ -88,8 +90,6 @@ class ResponseMessage {
   static const String NOT_FOUND =
       "Some thing went wrong, Try again later"; // failure, crash in server side
 
-
-
   // local status code
   static const String CONNECT_TIMEOUT = "Time out error, Try again later";
   static const String CANCEL = "Request was cancelled, Try again later";
@@ -98,7 +98,8 @@ class ResponseMessage {
   static const String CACHE_ERROR = "Cache error, Try again later";
   static const String NO_INTERNET_CONNECTION =
       "Please check your internet connection";
-  static const String DEFAULT = "Some thing went wrong, Try again later";}
+  static const String DEFAULT = "Some thing went wrong, Try again later";
+}
 
 extension DataSourceExtension on DataSource {
   Failure getFailure() {
@@ -136,12 +137,10 @@ extension DataSourceExtension on DataSource {
       case DataSource.DEFAULT:
         return Failure(ResponseCode.DEFAULT, ResponseMessage.DEFAULT);
     }
-
   }
 }
 
-class ApiInternalStatus{
+class ApiInternalStatus {
   static const int SUCCESS = 0;
   static const int FAILURE = 1;
 }
-

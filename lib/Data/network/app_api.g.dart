@@ -30,6 +30,7 @@ class _AppServicesClient implements AppServicesClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = AuthenticationResponse.fromJson(_result.data!);
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ${value..toString()}");
     return value;
   }
 

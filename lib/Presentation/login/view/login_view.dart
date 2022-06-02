@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mvvm_app/App/dependency_injection.dart';
+import 'package:flutter_mvvm_app/Presentation/common/state_rendrer/state_renderer_imp.dart';
 
 import '../../resources/assets_manager.dart';
 import '../../resources/color_manager.dart';
@@ -16,7 +17,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final LoginViewModel _viewModel = LoginViewModel();
+  final LoginViewModel _viewModel = dIinstance<LoginViewModel>();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _userPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -37,13 +38,17 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return _getContentWidget();
+    return Scaffold(
+      backgroundColor: ColorManager.white,
+      body: StreamBuilder<FlowState>(
+        stream: _viewModel.stateOutput,
+        builder: (context,snapshot)=>snapshot.data?.getScreenWidget(context,_getContentWidget(),(){})??_getContentWidget(),
+      ),
+    );
   }
 
   Widget _getContentWidget() {
-    return Scaffold(
-      backgroundColor: ColorManager.white,
-      body: Container(
+    return Container(
         padding: const EdgeInsets.only(top: AppPadding.p100),
         color: ColorManager.white,
         child: SingleChildScrollView(
@@ -147,8 +152,7 @@ class _LoginViewState extends State<LoginView> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 
   @override

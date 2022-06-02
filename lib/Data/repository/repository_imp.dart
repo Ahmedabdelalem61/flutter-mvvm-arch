@@ -21,7 +21,7 @@ class RepositoryImp implements Repository{
    //has internet
     if(await _networkInfo.isConnected){
       try{
-        final AuthenticationResponse response = _remoteDataSource.login(loginRequest) as AuthenticationResponse;
+        final AuthenticationResponse response = await _remoteDataSource.login(loginRequest);
         if(response.status == ApiInternalStatus.SUCCESS){
           return Right(response.toDomain());
         }else{

@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter_mvvm_app/Presentation/base/baseviewmodel.dart';
-
+import 'package:flutter_mvvm_app/Presentation/common/state_rendrer/state_renderer_imp.dart';
+import 'package:flutter_mvvm_app/Presentation/common/state_rendrer/state_rendrer.dart';
 import '../../../Domain/usecase/login_usecase.dart';
 import '../../common/freezed_data_classes.dart';
 
@@ -9,7 +9,7 @@ class LoginViewModel extends BaseViewModel
     with LoginViewModelInput, LoginViewModelOutput {
   var loginObject = LoginObject("", "");
 
-  final LoginUseCase _loginUseCase ;
+  final LoginUseCase _loginUseCase;
 
   LoginViewModel(this._loginUseCase);
 
@@ -22,6 +22,7 @@ class LoginViewModel extends BaseViewModel
 
   @override
   void dispose() {
+    super.dispose();
     _passwordStreamController.close();
     _userNameStreamController.close();
     _areAllInputsValidStreamController.close();
@@ -29,7 +30,7 @@ class LoginViewModel extends BaseViewModel
 
   @override
   void start() {
-    // TODO: implement start
+    stateInput.add(ContentState());
   }
 
   @override
@@ -78,10 +79,22 @@ class LoginViewModel extends BaseViewModel
 
   @override
   login() async {
+    stateInput.add(LoadingState(
+      stateType: RendrerStateType.popupLoadingState,
+      message: "loading....",
+    ));
+    
     (await _loginUseCase.execute(
             LoginUseCaseInput(loginObject.userName, loginObject.password)))
-        .fold((failure) => {print(failure.message)},
-            (data) => {print(data.customer?.name)});
+        .fold(
+            (failure) => {
+                 stateInput.add(ErrorState(
+      stateRendererType: RendrerStateType.popupErorrState,
+      message: failure.message,
+    ))
+                }, // to dismiss the dialogs I have used content state as the extension dismiss before building the content
+            (data) => {    stateInput.add(ContentState())
+});
   }
 }
 
