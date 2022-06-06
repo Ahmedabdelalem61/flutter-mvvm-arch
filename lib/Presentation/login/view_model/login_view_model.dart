@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:flutter_mvvm_app/App/app_prefs.dart';
+import 'package:flutter_mvvm_app/App/dependency_injection.dart';
 import 'package:flutter_mvvm_app/Presentation/base/baseviewmodel.dart';
 import 'package:flutter_mvvm_app/Presentation/common/state_rendrer/state_renderer_imp.dart';
 import 'package:flutter_mvvm_app/Presentation/common/state_rendrer/state_rendrer.dart';
@@ -19,6 +21,10 @@ class LoginViewModel extends BaseViewModel
       StreamController<String>.broadcast();
   final StreamController _areAllInputsValidStreamController =
       StreamController<void>.broadcast();
+  final StreamController<bool> isUserLoggedinSuccessfullyStreamController =
+      StreamController<bool>();
+
+  final AppPreferences _appPreferences = dIinstance<AppPreferences>();
 
   @override
   void dispose() {
@@ -87,13 +93,17 @@ class LoginViewModel extends BaseViewModel
     (await _loginUseCase.execute(
             LoginUseCaseInput(loginObject.userName, loginObject.password)))
         .fold(
-            (failure) => {
+            (failure)  {
                  stateInput.add(ErrorState(
       stateRendererType: RendrerStateType.popupErorrState,
       message: failure.message,
-    ))
+    ));
                 }, // to dismiss the dialogs I have used content state as the extension dismiss before building the content
-            (data) => {    stateInput.add(ContentState())
+            (data) {
+              isUserLoggedinSuccessfullyStreamController.add(true);
+                  stateInput.add(ContentState());
+                  _appPreferences.userLoggedIn();
+
 });
   }
 }

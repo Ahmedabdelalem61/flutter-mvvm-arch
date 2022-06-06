@@ -17,6 +17,7 @@ class AppStrings{
   static const username = "Username";
   static const password = "Password";
   static const usernameError = "Please enter your userName";
+  static const emailError = "Please enter your email Correctly";
   static const passwordError = "Please enter your password";
   static const login = "Login";
   static const forgetPassword = "Forget password";
@@ -24,4 +25,8 @@ class AppStrings{
   static const loading = "Loading...";
   static const retryAgain = "Retry again";
   static const ok = "Ok";
+  static const forgotPassword = "forgot Password";
+  static const enterYourEmail = "enter your email";
+  static const email = "email";
+
 }

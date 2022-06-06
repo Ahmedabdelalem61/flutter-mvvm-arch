@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mvvm_app/App/app_prefs.dart';
+import 'package:flutter_mvvm_app/App/dependency_injection.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../Domain/models/models.dart';
 import '../../resources/assets_manager.dart';
@@ -21,9 +23,11 @@ class _OnboardingViewState extends State<OnboardingView> {
   final PageController _pageController = PageController();
 
   final OnboardingViewModel _viewModel = OnboardingViewModel();
+  final AppPreferences _appPreferences = dIinstance<AppPreferences>();
 
   _bind() {
     _viewModel.start();
+     _appPreferences.onboardingViewd();
   }
 
   @override

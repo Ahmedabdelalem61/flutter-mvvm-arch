@@ -3,7 +3,7 @@ import 'package:flutter_mvvm_app/Presentation/onboarding/view/onboarding_view.da
 import 'package:flutter_mvvm_app/Presentation/resources/strings_manager.dart';
 
 import '../../App/dependency_injection.dart';
-import '../forgot_password/forgot_password_view.dart';
+import '../forgot_password/forgot_password_view/forgot_password_view.dart';
 import '../login/view/login_view.dart';
 import '../main/main_view.dart';
 import '../register/register_view.dart';
@@ -33,6 +33,7 @@ class RouteGenerator {
       case Routes.registerRoute:
         return MaterialPageRoute(builder: (_) => const RegisterView());
       case Routes.forgotPasswordRoute:
+        initForgotModule();
         return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
       case Routes.mainRoute:
         return MaterialPageRoute(builder: (_) => const MainView());

@@ -3,7 +3,9 @@ import 'package:flutter_mvvm_app/App/app_prefs.dart';
 import 'package:flutter_mvvm_app/Data/data_source/remote_data_source.dart';
 import 'package:flutter_mvvm_app/Data/network/app_api.dart';
 import 'package:flutter_mvvm_app/Data/repository/repository_imp.dart';
+import 'package:flutter_mvvm_app/Domain/usecase/forgot_password_usecase.dart';
 import 'package:flutter_mvvm_app/Domain/usecase/login_usecase.dart';
+import 'package:flutter_mvvm_app/Presentation/forgot_password/forgot_password_view_model/forgot_password_view_model.dart';
 import 'package:flutter_mvvm_app/Presentation/login/view_model/login_view_model.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -51,5 +53,14 @@ initLoginModule(){
    //login ViewModel
    dIinstance.registerFactory<LoginViewModel>(() => LoginViewModel(dIinstance()));
  }
+}
 
+initForgotModule(){
+ // if registered once in the app we needn't a lot
+  if(!GetIt.I.isRegistered<ForgotPasswordUseCase>()){
+   //login useCase
+   dIinstance.registerFactory<ForgotPasswordUseCase>(() => ForgotPasswordUseCase(dIinstance()));
+   //login ViewModel
+   dIinstance.registerFactory<ForgotPasswordViewModel>(() => ForgotPasswordViewModel(dIinstance()));
+ }
 }
