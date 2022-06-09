@@ -28,5 +28,8 @@ class AppStrings{
   static const forgotPassword = "forgot Password";
   static const enterYourEmail = "enter your email";
   static const email = "email";
+  static const empty = "empty";
+  static const success = "success";
+  static const error = "error";
 
 }

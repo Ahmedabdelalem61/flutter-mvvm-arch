@@ -14,12 +14,14 @@ enum RendrerStateType {
   fullLoadingState,
   fullErrorState,
   fullEmptyState,
+  fullSuccessState,
   // general
   contentState,
 
   // pop up renderer
   popupErorrState,
   popupLoadingState,
+  popupSuccessState,
 }
 
 class StateRenderer extends StatelessWidget {
@@ -59,12 +61,24 @@ class StateRenderer extends StatelessWidget {
         return _getPopUpDialog(context, [
           _getAnimatedImage(JsonAssets.error),
           _getMessage(message),
-          _getRetryButton(AppStrings.ok, context)
+          _getRetryButton(AppStrings.retryAgain, context)
         ]);
       case RendrerStateType.popupLoadingState:
         return _getPopUpDialog(context, [
           _getAnimatedImage(JsonAssets.loading),
+              _getTitle(title),
+              _getMessage(message),
         ]);
+      case RendrerStateType.popupSuccessState:
+      return _getPopUpDialog(context,
+            [
+              _getAnimatedImage(JsonAssets.success),
+              _getTitle(title),
+              _getMessage(message),
+              _getRetryButton(AppStrings.ok, context),
+            ],);
+      case RendrerStateType.fullSuccessState:
+      return _getColumnWidgets([_getAnimatedImage(JsonAssets.success),_getMessage(message)]);
       default:
         return Container();
     }
@@ -113,10 +127,22 @@ Widget _getDialogContent(BuildContext context, List<Widget> children) {
   Widget _getMessage(String message) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(AppPadding.p8),
+        padding: const EdgeInsets.all(AppPadding.p20),
         child: Text(
           message,
           style: getRegularStyle(
+              color: ColorManager.black, fontSize: FontSize.s18),
+        ),
+      ));
+  }
+
+   Widget _getTitle(String title) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p8),
+        child: Text(
+          title,
+          style: getMediumStyle(
               color: ColorManager.black, fontSize: FontSize.s18),
         ),
       ));

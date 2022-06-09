@@ -87,7 +87,8 @@ class LoginViewModel extends BaseViewModel
   login() async {
     stateInput.add(LoadingState(
       stateType: RendrerStateType.popupLoadingState,
-      message: "loading....",
+      message: "wait for seconds.",
+      title: 'loading...'
     ));
     
     (await _loginUseCase.execute(

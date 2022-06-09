@@ -7,24 +7,32 @@ import '../../../App/constants.dart';
 abstract class FlowState {
   RendrerStateType getStateType();
   String getMessage();
+  String getTitle();
 }
 
 class LoadingState implements FlowState {
   RendrerStateType stateType;
   String message;
-  LoadingState({this.message = AppStrings.loading, required this.stateType});
+  String title;
+  LoadingState({this.message = AppStrings.loading, required this.stateType,required this.title});
 
   @override
   String getMessage() => message;
 
   @override
   RendrerStateType getStateType() => stateType;
+
+
+  @override
+  String getTitle()=>title;
 }
 
 // error state (POPUP,FULL SCREEN)
 class ErrorState extends FlowState {
   RendrerStateType stateRendererType;
   String message;
+  String title = AppStrings.error;
+
 
   ErrorState({required this.stateRendererType,required this.message});
 
@@ -33,24 +41,33 @@ class ErrorState extends FlowState {
 
   @override
   RendrerStateType getStateType() => stateRendererType;
+
+  @override
+  String getTitle() => title;
 }
 
 // content state
 
 class ContentState extends FlowState {
   ContentState();
+  String title = '';
+
 
   @override
   String getMessage() => Constants.empty;
 
   @override
   RendrerStateType getStateType() => RendrerStateType.contentState;
+
+  @override
+  String getTitle()=> title;
 }
 
 // EMPTY STATE
 
 class EmptyState extends FlowState {
   String message;
+  String title = AppStrings.empty;
 
   EmptyState(this.message);
 
@@ -59,6 +76,26 @@ class EmptyState extends FlowState {
 
   @override
   RendrerStateType getStateType() => RendrerStateType.fullEmptyState;
+
+  @override
+  String getTitle() => title;
+}
+
+class SuccessState extends FlowState {
+  String message;
+  RendrerStateType stateType;
+  String title = AppStrings.success; 
+
+  SuccessState({required this.title,required this.message,required this.stateType});
+
+  @override
+  String getMessage() => message;
+
+  @override
+  RendrerStateType getStateType() => stateType;
+
+  @override
+  String getTitle() => title;
 }
 
 extension FlowStateExtension on FlowState {
@@ -68,12 +105,12 @@ extension FlowStateExtension on FlowState {
       case LoadingState:
         {
           if (getStateType() == RendrerStateType.popupLoadingState) {
-            showPopUp(context, getStateType(), getMessage());
+            showPopUp(context, getStateType(), getMessage(),getTitle());
             return contentScreenWidget;
           } else {
             return StateRenderer(
                 stateType: getStateType(),
-                title: "title",
+                title: getTitle(),
                 message: getMessage(),
                 retryFunctionRenderer: retryActionFunction);
           }
@@ -82,12 +119,12 @@ extension FlowStateExtension on FlowState {
           dismissDialog(context);
         {
           if (getStateType() == RendrerStateType.popupErorrState) {
-            showPopUp(context, getStateType(), getMessage());
+            showPopUp(context, getStateType(), getMessage(),getTitle());
             return contentScreenWidget;
           } else {
             return StateRenderer(
                 stateType: getStateType(),
-                title: "title",
+                title: getTitle(),
                 message: getMessage(),
                 retryFunctionRenderer: retryActionFunction);
           }
@@ -102,10 +139,20 @@ extension FlowStateExtension on FlowState {
           dismissDialog(context);
           return StateRenderer(
               stateType: getStateType(),
-              title: "title",
+              title: getTitle(),
               message: getMessage(),
               retryFunctionRenderer: () {});
         }
+      case SuccessState:
+      {
+        dismissDialog(context);
+        if(getStateType() == RendrerStateType.popupSuccessState){
+          showPopUp(context, RendrerStateType.popupSuccessState, getMessage(),getTitle());
+          return contentScreenWidget;
+        }else{
+          return StateRenderer(stateType:RendrerStateType.fullSuccessState , title: getTitle(), message: getMessage(), retryFunctionRenderer: (){});
+        }
+      }
       default:
         {
           dismissDialog(context);
@@ -127,13 +174,14 @@ extension FlowStateExtension on FlowState {
     BuildContext context,
     RendrerStateType stateType,
     String message,
+    String title
   ) {
     WidgetsBinding.instance!.addPostFrameCallback(
       (_) => showDialog(
         context: context,
         builder: (BuildContext context) => StateRenderer(
             stateType: stateType,
-            title: "title",
+            title: title??'',
             message: message,
             retryFunctionRenderer: () {}),
       ),
