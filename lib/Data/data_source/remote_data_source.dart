@@ -5,6 +5,7 @@ import 'package:flutter_mvvm_app/Domain/requests.dart';
 abstract class RemoteDataSource{
   Future<AuthenticationResponse> login(LoginRequest loginRequest);
   Future<ForgotPasswordResponse> forgotPassword(String email);
+  Future<AuthenticationResponse> register(RegisterRequest registerRequest);
 
 }
 
@@ -21,5 +22,11 @@ class RemoteDataSourceImp implements RemoteDataSource{
   @override
   Future<ForgotPasswordResponse> forgotPassword(String email)async {
     return await _appServicesClient.forgotPassword(email);
+  }
+
+  @override
+  Future<AuthenticationResponse> register(RegisterRequest registerRequest)async {
+   return await _appServicesClient.register(registerRequest.userName, registerRequest.countryMobileCode, registerRequest.mobileNumber,
+    registerRequest.email, registerRequest.password, registerRequest.profilePicture);
   }
 }

@@ -69,7 +69,7 @@ Map<String, dynamic> _$AuthenticationResponseToJson(
 ForgotPasswordResponse _$ForgotPasswordResponseFromJson(
         Map<String, dynamic> json) =>
     ForgotPasswordResponse(
-      json['support'] as String,
+      json['support'] as String?,
     )
       ..status = json['status'] as int?
       ..message = json['message'] as String?;

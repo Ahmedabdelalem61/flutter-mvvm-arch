@@ -181,7 +181,7 @@ extension FlowStateExtension on FlowState {
         context: context,
         builder: (BuildContext context) => StateRenderer(
             stateType: stateType,
-            title: title??'',
+            title: title,
             message: message,
             retryFunctionRenderer: () {}),
       ),

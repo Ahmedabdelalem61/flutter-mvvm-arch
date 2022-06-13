@@ -9,4 +9,5 @@ abstract class Repository{
   /// so that apiServices -> remoteDataSource -> repositoryImplementer to come up only with the toDomain model so it works as a black box
   Future<Either<Failure,Authentication>> login(LoginRequest loginRequest);
   Future<Either<Failure,String>> forgotPassword(String email);
+  Future<Either<Failure,Authentication>> register(RegisterRequest registerRequest);
 }
