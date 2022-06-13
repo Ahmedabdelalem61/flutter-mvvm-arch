@@ -6,7 +6,7 @@ import '../../App/dependency_injection.dart';
 import '../forgot_password/forgot_password_view/forgot_password_view.dart';
 import '../login/view/login_view.dart';
 import '../main/main_view.dart';
-import '../register/register_view.dart';
+import '../register/register_view/register_view.dart';
 import '../splash/splash_view.dart';
 import '../store _details/store_details_view.dart';
 

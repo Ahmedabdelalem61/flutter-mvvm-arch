@@ -8,6 +8,13 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
+  
+  @override
+  void dispose() {
+    // TODO: call dispose in register view model
+    super.dispose();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Container();

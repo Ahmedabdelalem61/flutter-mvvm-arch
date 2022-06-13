@@ -5,9 +5,9 @@ import 'package:flutter_mvvm_app/Domain/repository/repository.dart';
 import 'package:flutter_mvvm_app/Domain/requests.dart';
 import 'base_usecase.dart';
 
-class LoginUseCase implements BaseUseCase<RegisterUseCaseInput,Authentication>{
+class RegisterUseCase implements BaseUseCase<RegisterUseCaseInput,Authentication>{
   final Repository _repository ;
-  LoginUseCase(this._repository);
+  RegisterUseCase(this._repository);
   @override
   Future<Either<Failure, Authentication>> execute(RegisterUseCaseInput input) async{
     return await _repository.register(RegisterRequest(input.email, input.password, input.phoneNumber, input.mobileCountyCode, input.profilePicture, input.userName));
