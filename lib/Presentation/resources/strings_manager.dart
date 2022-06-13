@@ -31,5 +31,5 @@ class AppStrings{
   static const empty = "empty";
   static const success = "success";
   static const error = "error";
-
+  static const userNameInvalid = "please fill the user Name with more than 8 chars";
 }
