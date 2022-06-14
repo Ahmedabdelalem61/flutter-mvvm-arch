@@ -32,4 +32,7 @@ class AppStrings{
   static const success = "success";
   static const error = "error";
   static const userNameInvalid = "please fill the user Name with more than 8 chars";
+  static const emailInvalid = "please fill the email correctly";
+  static const phoneNumberInvalid = "please fill the phoneNumber with more than 10 chars";
+  static const passwordInvalid = "please fill the password with more than 6 chars";
 }

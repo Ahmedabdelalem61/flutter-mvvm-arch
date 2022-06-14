@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:analyzer/file_system/file_system.dart';
+import 'package:flutter_mvvm_app/App/functions.dart';
 import 'package:flutter_mvvm_app/Domain/usecase/register_usecase.dart';
 import 'package:flutter_mvvm_app/Presentation/base/baseviewmodel.dart';
 import 'package:flutter_mvvm_app/Presentation/resources/strings_manager.dart';
@@ -46,8 +47,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput , Regi
   Sink get passwordStreamControllerValidInput => passwordStreamControllerValid.sink;
 
   @override
-  Sink get profilePicwordStreamControllerValidInput => profilePictureStreamControllerValid.sink;
-
+  Sink get profilePicStreamControllerValidInput => profilePictureStreamControllerValid.sink;
 
   @override
   Sink get phoneNumberStreamControllerValidInput => phoneNumberStreamControllerValid.sink;
@@ -68,42 +68,44 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput , Regi
     return userName.length >= 8;
   }
 
-  
+  @override
+  Stream<bool> get emailStreamControllerValidOutput => emailStreamControllerValid.stream.map((email) => isEmailValid(email)); 
+
+  @override
+  Stream<String?> get emailErrorStreamControllerValidOutput => emailStreamControllerValidOutput.map((email) => email?null:AppStrings.emailInvalid);
 
   @override
   Stream<bool> get allValidOutput => throw UnimplementedError();
 
   @override
-  // TODO: implement emailErrorStreamControllerValidOutput
-  Stream<String?> get emailErrorStreamControllerValidOutput => throw UnimplementedError();
+  Stream<bool> get passwordStreamControllerValidOutput => passwordStreamControllerValid.stream.map((password) => _isPasswordValid(password));
 
+  @override
+  Stream<String?> get passwordErrorStreamControllerValidOutput => passwordStreamControllerValidOutput.map((password) => password?null:AppStrings.passwordInvalid);
+
+
+
+  bool _isPasswordValid(String password){
+    return password.length >= 6;
+  }
   
 
   @override
-  // TODO: implement emailStreamControllerValidOutput
-  Stream<bool> get emailStreamControllerValidOutput => throw UnimplementedError();
+  Stream<bool> get phoneNumberStreamControllerValidOutput => phoneNumberStreamControllerValid.stream.map((phoneNumber) => _isPhoneNumberValid(phoneNumber));
+   
+   @override
+  Stream<String?> get phoneNumberErrorStreamControllerValidOutput => phoneNumberStreamControllerValidOutput.map((phone) => phone?null: AppStrings.phoneNumberInvalid);
+
+   bool _isPhoneNumberValid(String phoneNumber){
+    return phoneNumber.length >= 10;
+  }
 
   @override
-  // TODO: implement passwordErrorStreamControllerValidOutput
-  Stream<String?> get passwordErrorStreamControllerValidOutput => throw UnimplementedError();
+  Stream<File> get profilePictureStreamControllerValidOutput => profilePictureStreamControllerValid.stream.map((file) => file);
 
-  
 
-  @override
-  // TODO: implement passwordStreamControllerValidOutput
-  Stream<bool> get passwordStreamControllerValidOutput => throw UnimplementedError();
 
-  @override
-  // TODO: implement phoneNumberErrorStreamControllerValidOutput
-  Stream<String?> get phoneNumberErrorStreamControllerValidOutput => throw UnimplementedError();
 
-  
-
-  @override
-  // TODO: implement phoneNumberStreamControllerValidOutput
-  Stream<bool> get phoneNumberStreamControllerValidOutput => throw UnimplementedError();
-
-  
  
 }
 
@@ -112,7 +114,7 @@ abstract class RegisterViewModelInput{
   Sink get userNameStreamControllerValidInput;
   Sink get phoneNumberStreamControllerValidInput;
   Sink get emailStreamControllerValidInput;
-  Sink get profilePicwordStreamControllerValidInput;
+  Sink get profilePicStreamControllerValidInput;
 }
 
 abstract class RegisterViewModelOutput{
@@ -129,7 +131,11 @@ abstract class RegisterViewModelOutput{
   
   Stream<bool> get emailStreamControllerValidOutput;
   Stream<String?> get emailErrorStreamControllerValidOutput;
+
   
   Stream<bool> get allValidOutput;
+
+  Stream<File> get profilePictureStreamControllerValidOutput;
+
 
 }
