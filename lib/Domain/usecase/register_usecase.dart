@@ -13,6 +13,12 @@ class RegisterUseCase implements BaseUseCase<RegisterUseCaseInput,Authentication
     return await _repository.register(RegisterRequest(input.email, input.password, input.phoneNumber, input.mobileCountyCode, input.profilePicture, input.userName));
   }
 }
+
+/*
+ * we send here the data only with register request object binded or encabsulated
+ * using the register or mainly the UseCase object.
+ */
+
 /*
 {
   "user_name":"test",
