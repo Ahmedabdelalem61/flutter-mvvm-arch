@@ -1,19 +1,15 @@
 import 'dart:async';
-
+import 'dart:html';
 import 'package:analyzer/file_system/file_system.dart';
 import 'package:flutter_mvvm_app/App/functions.dart';
 import 'package:flutter_mvvm_app/Domain/usecase/register_usecase.dart';
 import 'package:flutter_mvvm_app/Presentation/base/baseviewmodel.dart';
 import 'package:flutter_mvvm_app/Presentation/common/state_rendrer/state_rendrer.dart';
 import 'package:flutter_mvvm_app/Presentation/resources/strings_manager.dart';
-
 import '../../common/freezed_data_classes.dart';
 import '../../common/state_rendrer/state_renderer_imp.dart';
 
 class RegisterViewModel extends BaseViewModel with RegisterViewModelInput , RegisterViewModelOutput{
-  
-  
-  
   
   final RegisterUseCase _registerUseCase;
 
@@ -32,7 +28,8 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput , Regi
   
   @override
   void start() {
-    // TODO: implement start
+    // start here for things like calling api or adding specific view (rendering states)
+    stateInput.add(ContentState());
   }
   
   @override
@@ -124,6 +121,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput , Regi
     validate();
   }
 
+ @override
  register() async {
     stateInput.add(
         LoadingState(stateType: RendrerStateType.popupLoadingState,title: 'loading..',message: 'please wait...'));
@@ -224,6 +222,8 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput , Regi
   }
 
   validate() {
+    // for learning purpose incase you forked this repo or used this code i will write alot of comment :)
+    // we validate by sending empty data to the allvalidstreamController and checking it's stream if it's valid or not 
     inputAllInputsValid.add(null);
   }
 
@@ -250,7 +250,7 @@ abstract class RegisterViewModelInput{
 
 abstract class RegisterViewModelOutput{
   Stream<bool> get passwordStreamControllerValidOutput;
-  Stream<String?> get passwordErrorStreamControllerValidOutput;
+  Stream<String?> get passwordErrorStreamControllerValidOutput;//nullable because of if it's val is null we not be error state on the view
 
   Stream<bool> get userNameStreamControllerValidOutput;
   Stream<String?> get userNameErrorStreamControllerValidOutput;
