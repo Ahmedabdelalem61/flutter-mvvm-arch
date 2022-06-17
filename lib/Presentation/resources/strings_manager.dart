@@ -34,5 +34,12 @@ class AppStrings{
   static const userNameInvalid = "please fill the user Name with more than 8 chars";
   static const emailInvalid = "please fill the email correctly";
   static const phoneNumberInvalid = "please fill the phoneNumber with more than 10 chars";
+  static const register = "Register";
   static const passwordInvalid = "please fill the password with more than 6 chars";
+  static const alreadyHaveAnAccount = "already have an account? login now!";
+  static const mobileNumber = "Mobile Number";
+  static const phoneNumber  = "phone number";
+  static const profilePicture  = "profile Picture";
+  static const picFromGallery  = "pic From Gallery";
+  static const picFromCamera  = "pic From Camera";
 }
