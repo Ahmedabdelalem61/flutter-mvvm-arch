@@ -31,7 +31,7 @@ class _LoginViewState extends State<LoginView> {
     _viewModel.isUserLoggedinSuccessfullyStreamController.stream
         .listen((isLogged) {
       if (isLogged) {
-        SchedulerBinding.instance?.addPostFrameCallback((_) {
+        SchedulerBinding.instance.addPostFrameCallback((_) {
           Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
         });
       }

@@ -10,7 +10,8 @@ class RegisterUseCase implements BaseUseCase<RegisterUseCaseInput,Authentication
   RegisterUseCase(this._repository);
   @override
   Future<Either<Failure, Authentication>> execute(RegisterUseCaseInput input) async{
-    return await _repository.register(RegisterRequest(input.email, input.password, input.phoneNumber, input.mobileCountyCode, input.profilePicture, input.userName));
+    // I'm sending here tha profilr picture as it is in mock api server
+    return await _repository.register(RegisterRequest(input.email, input.password, input.phoneNumber, input.mobileCountyCode, "", input.userName));
   }
 }
 

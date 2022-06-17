@@ -10,6 +10,7 @@ import 'package:flutter_mvvm_app/Presentation/forgot_password/forgot_password_vi
 import 'package:flutter_mvvm_app/Presentation/login/view_model/login_view_model.dart';
 import 'package:flutter_mvvm_app/Presentation/register/register_viewmodel/register_viewmodel.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -70,5 +71,7 @@ initRegisterModule(){
   if(!GetIt.I.isRegistered<RegisterUseCase>()){
    dIinstance.registerFactory<RegisterUseCase>(() => RegisterUseCase(dIinstance()));
    dIinstance.registerFactory<RegisterViewModel>(() => RegisterViewModel(dIinstance()));
+   dIinstance.registerFactory<ImagePicker>(() => ImagePicker());
+
  }
  }
