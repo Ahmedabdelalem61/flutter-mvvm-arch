@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_mvvm_app/Data/network/faiure.dart';
+import 'package:flutter_mvvm_app/Data/responses/responses.dart';
 import 'package:flutter_mvvm_app/Domain/models/models.dart';
 
 import '../requests.dart';
@@ -10,4 +11,5 @@ abstract class Repository{
   Future<Either<Failure,Authentication>> login(LoginRequest loginRequest);
   Future<Either<Failure,String>> forgotPassword(String email);
   Future<Either<Failure,Authentication>> register(RegisterRequest registerRequest);
+  Future<Either<Failure,HomeObject>> getHomeData();
 }

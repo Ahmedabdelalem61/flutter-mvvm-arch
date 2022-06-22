@@ -6,6 +6,7 @@ abstract class RemoteDataSource{
   Future<AuthenticationResponse> login(LoginRequest loginRequest);
   Future<ForgotPasswordResponse> forgotPassword(String email);
   Future<AuthenticationResponse> register(RegisterRequest registerRequest);
+  Future<HomeResponse> getHomeData();
 
 }
 
@@ -28,5 +29,10 @@ class RemoteDataSourceImp implements RemoteDataSource{
   Future<AuthenticationResponse> register(RegisterRequest registerRequest)async {
    return await _appServicesClient.register(registerRequest.userName, registerRequest.countryMobileCode, registerRequest.mobileNumber,
     registerRequest.email, registerRequest.password, registerRequest.profilePicture);
+  }
+  
+  @override
+  Future<HomeResponse> getHomeData()async {
+    return await _appServicesClient.getHomeData();
   }
 }
