@@ -40,22 +40,22 @@ class Authentication {
 
 
 class Service {
-  String? id;
+  int? id;
   String? title;
   String? image;
   Service(this.id, this.title, this.image);
 }
 
-class Banner {
-  String? id;
+class BannerAds {
+  int? id;
   String? title;
   String? image;
-  Banner(this.id, this.title, this.image);
+  BannerAds(this.id, this.title, this.image);
   
 }
 
 class Store {
-  String? id;
+  int? id;
   String? title;
   String? image;
   Store(this.id, this.title, this.image);
@@ -63,7 +63,7 @@ class Store {
 
 class HomeData {
   List<Service> services;
-  List<Banner> banners;
+  List<BannerAds> banners;
   List<Store> stores;
 
   HomeData(

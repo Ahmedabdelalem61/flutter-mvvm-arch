@@ -46,4 +46,6 @@ class AppStrings{
   static const home  = "home";
   static const settings  = "settings";
   static const search  = "search";
+  static const services = "Services";
+  static const stores = "Stores";
 }

@@ -12,7 +12,7 @@ import '../../../../common/state_rendrer/state_rendrer.dart';
 class HomeViewModel extends BaseViewModel
     with InputHomeViewModel, OutputHomeViewModel {
   StreamController servicesStreamController = BehaviorSubject<List<Service>>();
-  StreamController banneresStreamController = BehaviorSubject<List<Banner>>();
+  StreamController banneresStreamController = BehaviorSubject<List<BannerAds>>();
   StreamController storesStreamController = BehaviorSubject<List<Store>>();
 
   // if u don't know about behavior subject it's subtype of streams u can search about :)
@@ -61,7 +61,7 @@ class HomeViewModel extends BaseViewModel
   Sink get inputStores => storesStreamController.sink;
 
   @override
-  Stream<List<Banner>> get outputBanneres =>
+  Stream<List<BannerAds>> get outputBanneres =>
       banneresStreamController.stream.map((banneres) => banneres);
 
   @override
@@ -83,5 +83,5 @@ abstract class InputHomeViewModel {
 abstract class OutputHomeViewModel {
   Stream<List<Service>> get outputServices;
   Stream<List<Store>> get outputStores;
-  Stream<List<Banner>> get outputBanneres;
+  Stream<List<BannerAds>> get outputBanneres;
 }
