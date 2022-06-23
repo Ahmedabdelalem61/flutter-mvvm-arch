@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter_mvvm_app/Presentation/common/state_rendrer/state_renderer_imp.dart';
+import 'package:rxdart/subjects.dart';
 
 abstract class BaseViewModel extends BaseViewModelInputs with BaseViewModelOutputs {
   //for any shared methods or variables for  views
-  final StreamController<FlowState> _flowStateController  = StreamController<FlowState>.broadcast();
+  final StreamController<FlowState> _flowStateController  = BehaviorSubject<FlowState>();
   @override
   void dispose() {
     _flowStateController.close();
