@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_mvvm_app/App/app_prefs.dart';
+import 'package:flutter_mvvm_app/Data/data_source/local_data_sourece.dart';
 import 'package:flutter_mvvm_app/Data/data_source/remote_data_source.dart';
 import 'package:flutter_mvvm_app/Data/network/app_api.dart';
 import 'package:flutter_mvvm_app/Data/repository/repository_imp.dart';
@@ -44,10 +45,14 @@ Future<void> initAppModule()async{
   dIinstance.registerLazySingleton<RemoteDataSource>(
           () => RemoteDataSourceImp(dIinstance<AppServicesClient>()));
 
+  // local data Source
+  dIinstance.registerLazySingleton<LocalDataSource>(
+          ()=>LocalDataSourceImp());
+
   // repository
 
   dIinstance.registerLazySingleton<Repository>(
-          () => RepositoryImp(dIinstance(), dIinstance()));
+          () => RepositoryImp(dIinstance(), dIinstance(),dIinstance()));
 }
 
 initLoginModule(){

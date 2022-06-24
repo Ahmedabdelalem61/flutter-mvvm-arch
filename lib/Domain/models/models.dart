@@ -14,6 +14,13 @@ class SliderViewObject {
   SliderViewObject(this.sliderObject, this.numOfSlides, this.currentIndex);
 }
 
+class HomeViewData{
+  List<BannerAds> banners;
+  List<Store> stores;
+  List<Service> services;
+  HomeViewData({required this.banners,required this.services,required this.stores});
+}
+
 // login
 class Customer {
   String id;

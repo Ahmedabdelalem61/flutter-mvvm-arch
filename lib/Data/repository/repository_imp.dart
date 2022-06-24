@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_mvvm_app/Data/data_source/local_data_sourece.dart';
 import 'package:flutter_mvvm_app/Data/data_source/remote_data_source.dart';
 import 'package:flutter_mvvm_app/Data/mapper/mapper.dart';
 import 'package:flutter_mvvm_app/Data/network/error-handler.dart';
@@ -12,9 +13,10 @@ import 'package:flutter_mvvm_app/Domain/requests.dart';
 class RepositoryImp implements Repository{
   late final RemoteDataSource _remoteDataSource;
   late final NetworkInfo _networkInfo;
+  late final LocalDataSource _localDataSource;
 
 
-  RepositoryImp(this._remoteDataSource, this._networkInfo);
+  RepositoryImp(this._remoteDataSource, this._networkInfo,this._localDataSource);
 
   @override
   Future<Either<Failure, Authentication>> login(LoginRequest loginRequest) async{
@@ -76,10 +78,15 @@ class RepositoryImp implements Repository{
   
   @override
   Future<Either<Failure, HomeObject>> getHomeData() async{
-       if(await _networkInfo.isConnected){
+      try{
+        final homeResponse = await _localDataSource.gethomeDate();
+        return Right(homeResponse.toDomain());
+      }catch(error){
+         if(await _networkInfo.isConnected){
       try{
         final HomeResponse response = await _remoteDataSource.getHomeData();
         if(response.status == ApiInternalStatus.SUCCESS){
+          _localDataSource.saveInCache(response);
           return Right(response.toDomain());
         }else{
           return Left(Failure(ApiInternalStatus.FAILURE,response.message??ResponseMessage.DEFAULT));
@@ -91,6 +98,7 @@ class RepositoryImp implements Repository{
     }else{
       return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
     }
+      }
   }
 
 }
