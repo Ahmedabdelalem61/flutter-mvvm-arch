@@ -8,10 +8,12 @@ import 'package:flutter_mvvm_app/Domain/usecase/forgot_password_usecase.dart';
 import 'package:flutter_mvvm_app/Domain/usecase/home_usecase.dart';
 import 'package:flutter_mvvm_app/Domain/usecase/login_usecase.dart';
 import 'package:flutter_mvvm_app/Domain/usecase/register_usecase.dart';
+import 'package:flutter_mvvm_app/Domain/usecase/store_details_usecase.dart';
 import 'package:flutter_mvvm_app/Presentation/forgot_password/forgot_password_view_model/forgot_password_view_model.dart';
 import 'package:flutter_mvvm_app/Presentation/login/view_model/login_view_model.dart';
 import 'package:flutter_mvvm_app/Presentation/main/main_pages/home/home_viewmodel/home_viewmodel.dart';
 import 'package:flutter_mvvm_app/Presentation/register/register_viewmodel/register_viewmodel.dart';
+import 'package:flutter_mvvm_app/Presentation/store%20_details/store_details_viewmodel/store_details_viewmode;.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -88,5 +90,13 @@ initRegisterModule(){
   if(!GetIt.I.isRegistered<HomeUseCase>()){
    dIinstance.registerFactory<HomeUseCase>(() => HomeUseCase(dIinstance()));
    dIinstance.registerFactory<HomeViewModel>(() => HomeViewModel(dIinstance()));
+ }
+}
+
+ initStoreDetailsModule(){
+ // if registered once in the app we needn't a lot
+  if(!GetIt.I.isRegistered<StoreDetailsUSeCase>()){
+   dIinstance.registerFactory<StoreDetailsUSeCase>(() => StoreDetailsUSeCase(dIinstance()));
+   dIinstance.registerFactory<StoreDetailsViewModel>(() => StoreDetailsViewModel(dIinstance()));
  }
 }

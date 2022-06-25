@@ -83,3 +83,12 @@ class HomeObject{
   HomeObject(
       this.data);
 }
+
+class StoreDetails {
+String image;
+String title;
+String details;
+String services;
+String about;
+StoreDetails({required this.about,required this.title,required this.services,required this.image,required this.details});
+}
