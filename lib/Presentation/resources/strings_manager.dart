@@ -1,3 +1,5 @@
+import 'package:flutter_mvvm_app/Domain/models/models.dart';
+
 class AppStrings{
   static const String noRouteFound = 'you have pushed undefined route';
   static const onBoardingTitle1 = "SEE THE BEST COURSE #1";
@@ -48,4 +50,6 @@ class AppStrings{
   static const search  = "search";
   static const services = "Services";
   static const stores = "Stores";
+  static const details = "details";
+  static const aboutStore = "about store";
 }

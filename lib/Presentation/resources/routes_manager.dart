@@ -8,7 +8,7 @@ import '../login/view/login_view.dart';
 import '../main/main_view.dart';
 import '../register/register_view/register_view.dart';
 import '../splash/splash_view.dart';
-import '../store _details/store_details_view.dart';
+import '../store _details/store_details_view/store_details_view.dart';
 
 class Routes {
   static const String splashRoute = "/";
@@ -40,6 +40,7 @@ class RouteGenerator {
         initHomeModule();
         return MaterialPageRoute(builder: (_) => const MainView());
       case Routes.storeDetailsRoute:
+        initStoreDetailsModule();
         return MaterialPageRoute(builder: (_) => const StoreDetailsView());
       default:
         return unDefinedRoute();

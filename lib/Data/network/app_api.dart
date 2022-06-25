@@ -37,4 +37,6 @@ abstract class AppServicesClient{
   @GET("/home")
   Future<HomeResponse> getHomeData();
 
+  @GET("/store")
+  Future<StoreDetailsResponse> getStoreDetailsData();
 }

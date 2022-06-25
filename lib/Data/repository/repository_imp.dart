@@ -86,7 +86,32 @@ class RepositoryImp implements Repository{
       try{
         final HomeResponse response = await _remoteDataSource.getHomeData();
         if(response.status == ApiInternalStatus.SUCCESS){
-          _localDataSource.saveInCache(response);
+          _localDataSource.saveHomeInCache(response);
+          return Right(response.toDomain());
+        }else{
+          return Left(Failure(ApiInternalStatus.FAILURE,response.message??ResponseMessage.DEFAULT));
+        }
+      }catch (error){
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    // there is no internet
+    }else{
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+      }
+  }
+  
+  @override
+  Future<Either<Failure, StoreDetails>> getStoreDetailsData() async{
+   try{
+        final storeDetailsResponse = await _localDataSource.getStoreDetailsDate();
+        return Right(storeDetailsResponse.toDomain());
+      }catch(error){
+         if(await _networkInfo.isConnected){
+      try{
+        final StoreDetailsResponse response = await _remoteDataSource.getStoreDetailsData();
+        if(response.status == ApiInternalStatus.SUCCESS){
+          _localDataSource.saveStoreDetailsInCache(response);
           return Right(response.toDomain());
         }else{
           return Left(Failure(ApiInternalStatus.FAILURE,response.message??ResponseMessage.DEFAULT));
