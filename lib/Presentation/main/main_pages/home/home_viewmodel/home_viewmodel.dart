@@ -11,9 +11,8 @@ import '../../../../common/state_rendrer/state_rendrer.dart';
 
 class HomeViewModel extends BaseViewModel
     with InputHomeViewModel, OutputHomeViewModel {
-  StreamController servicesStreamController = BehaviorSubject<List<Service>>();
-  StreamController banneresStreamController = BehaviorSubject<List<BannerAds>>();
-  StreamController storesStreamController = BehaviorSubject<List<Store>>();
+
+  StreamController homeViewdataStreamController = BehaviorSubject<HomeViewData>();
 
   // if u don't know about behavior subject it's subtype of streams u can search about :)
   final HomeUseCase _homeUseCase;
@@ -25,9 +24,7 @@ class HomeViewModel extends BaseViewModel
   }
   @override
   void dispose() {
-    servicesStreamController.close();
-    banneresStreamController.close();
-    storesStreamController.close();
+    homeViewdataStreamController.close();
     super.dispose();
   }
 
@@ -44,44 +41,25 @@ class HomeViewModel extends BaseViewModel
       ));
     }, // to dismiss the dialogs I have used content state as the extension dismiss before building the content
         (HomeData) {
-          inputBanners.add(HomeData.data.banners);
-          inputServices.add(HomeData.data.services);
-          inputStores.add(HomeData.data.stores);
+          inputHomeViewData.add(HomeViewData(banners: HomeData.data.banners, services: HomeData.data.services, stores: HomeData.data.stores));
           stateInput.add(ContentState());
         });
   }
-
+  
   @override
-  Sink get inputBanners => banneresStreamController.sink;
-
+  Sink get inputHomeViewData => homeViewdataStreamController.sink;
+  
   @override
-  Sink get inputServices => servicesStreamController.sink;
+  Stream<HomeViewData> get outputHomeViewData => homeViewdataStreamController.stream.map((homeViewData) => homeViewData);
+  }
 
-  @override
-  Sink get inputStores => storesStreamController.sink;
-
-  @override
-  Stream<List<BannerAds>> get outputBanneres =>
-      banneresStreamController.stream.map((banneres) => banneres);
-
-  @override
-  Stream<List<Service>> get outputServices =>
-      servicesStreamController.stream.map((services) => services);
-
-  @override
-  Stream<List<Store>> get outputStores =>
-      storesStreamController.stream.map((stores) => stores);
-}
 
 // input and output home viewmodels
 abstract class InputHomeViewModel {
-  Sink get inputServices;
-  Sink get inputStores;
-  Sink get inputBanners;
+  Sink get inputHomeViewData;
+
 }
 
 abstract class OutputHomeViewModel {
-  Stream<List<Service>> get outputServices;
-  Stream<List<Store>> get outputStores;
-  Stream<List<BannerAds>> get outputBanneres;
+  Stream<HomeViewData> get outputHomeViewData;
 }
