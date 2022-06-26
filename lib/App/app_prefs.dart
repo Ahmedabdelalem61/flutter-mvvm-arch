@@ -31,4 +31,8 @@ class AppPreferences {
     return _sharedPreferences.getBool(PREFS_KEY_ONBOARDING_VIEWED)??false;
   }
 
+  Future<void> logout()async{
+    await _sharedPreferences.remove(PREFS_KEY_USER_LOGGED_IN);
+  }
+
 }
