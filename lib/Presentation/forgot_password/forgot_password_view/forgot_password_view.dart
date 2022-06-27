@@ -1,4 +1,5 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_app/App/dependency_injection.dart';
 import 'package:flutter_mvvm_app/Presentation/common/state_rendrer/state_renderer_imp.dart';
@@ -71,11 +72,11 @@ class _ForgotPasswordView extends State<ForgotPasswordView> {
                         keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
                         decoration: InputDecoration(
-                            hintText: AppStrings.enterYourEmail,
-                            labelText: AppStrings.email,
+                            hintText: AppStrings.enterYourEmail.tr(),
+                            labelText: AppStrings.email.tr(),
                             errorText: (snapshot.data ?? true)
                                 ? null
-                                : AppStrings.emailError),
+                                : AppStrings.emailError.tr()),
                       );
                     }),
               ),
@@ -100,7 +101,7 @@ class _ForgotPasswordView extends State<ForgotPasswordView> {
                                     _viewModel.forgotPassword();
                                   }
                                 : null,
-                            child: const Text(AppStrings.forgotPassword)),
+                            child: const Text(AppStrings.forgotPassword).tr()),
                       );
                     }),
               ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_app/Presentation/common/state_rendrer/state_rendrer.dart';
 import 'package:flutter_mvvm_app/Presentation/resources/strings_manager.dart';
@@ -31,7 +32,7 @@ class LoadingState implements FlowState {
 class ErrorState extends FlowState {
   RendrerStateType stateRendererType;
   String message;
-  String title = AppStrings.error;
+  String title = AppStrings.error.tr();
 
 
   ErrorState({required this.stateRendererType,required this.message});
@@ -67,7 +68,7 @@ class ContentState extends FlowState {
 
 class EmptyState extends FlowState {
   String message;
-  String title = AppStrings.empty;
+  String title = AppStrings.empty.tr();
 
   EmptyState(this.message);
 
@@ -84,7 +85,7 @@ class EmptyState extends FlowState {
 class SuccessState extends FlowState {
   String message;
   RendrerStateType stateType;
-  String title = AppStrings.success; 
+  String title = AppStrings.success.tr(); 
 
   SuccessState({required this.title,required this.message,required this.stateType});
 
@@ -176,12 +177,12 @@ extension FlowStateExtension on FlowState {
     String message,
     String title
   ) {
-    WidgetsBinding.instance!.addPostFrameCallback(
+    WidgetsBinding.instance.addPostFrameCallback(
       (_) => showDialog(
         context: context,
         builder: (BuildContext context) => StateRenderer(
             stateType: stateType,
-            title: title??'',
+            title: title,
             message: message,
             retryFunctionRenderer: () {}),
       ),

@@ -37,7 +37,7 @@
   "stores": "المتاجر",
   "about": "عن المتجر",
   "details": "التفاصيل",
-  "store_details": "تفصايل المتجر",
+  "store_details": "تفاصيل المتجر",
   "success": "تم النجاح",
   "bad_request_error": "طلب غير صالح. حاول مرة أخرى لاحقًا",
   "forbidden_error": "طلب محظور. حاول مرة أخرى لاحقًا",
@@ -54,6 +54,12 @@
   "contact_us": "اتصل بنا",
   "invite_your_friends": "قم بدعوة أصدقائك",
   "logout": "تسجيل الخروج",
-  "reset_password": "اعاده تعيين كلمه السر"
+  "reset_password": "اعاده تعيين كلمه السر",
+  "password_error": "الرجاء إدخال كلمة المرور",
+  "about_store" : "حول المتجر",
+  "loading_message" : "جار التحميل الرجاء الانتظار.",
+  "register_success" : "تم التسجيل بنجاح",
+  "usernameError" : "الرجاء ادخال اسم المستخدم"
+
 
 }

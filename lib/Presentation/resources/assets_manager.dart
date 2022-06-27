@@ -10,7 +10,13 @@ class ImageAssets {
   static const String solidCircleIc = "$imagePath/solid_circle_ic.svg";
   static const String leftArrowIc = "$imagePath/left_arrow_ic.svg";
   static const String rightArrowIc = "$imagePath/right_arrow_ic.svg";
+  static const String cameraIcon = "$imagePath/photo_camera_ic.svg";
+  static const String changeLangIcon = "$imagePath/change_lang_ic.svg";
+  static const String contactUsIcon = "$imagePath/contact_us_ic.svg";
+  static const String inviteFriends = "$imagePath/invite_friends_ic.svg";
+  static const String logoutIcon = "$imagePath/logout_ic.svg";
 }
+
 
 class JsonAssets {
   static const String loading = "$jsonPath/loading.json";

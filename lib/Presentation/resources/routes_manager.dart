@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_app/Presentation/onboarding/view/onboarding_view.dart';
 import 'package:flutter_mvvm_app/Presentation/resources/strings_manager.dart';
@@ -6,9 +7,9 @@ import '../../App/dependency_injection.dart';
 import '../forgot_password/forgot_password_view/forgot_password_view.dart';
 import '../login/view/login_view.dart';
 import '../main/main_view.dart';
-import '../register/register_view.dart';
+import '../register/register_view/register_view.dart';
 import '../splash/splash_view.dart';
-import '../store _details/store_details_view.dart';
+import '../store _details/store_details_view/store_details_view.dart';
 
 class Routes {
   static const String splashRoute = "/";
@@ -31,13 +32,16 @@ class RouteGenerator {
         initLoginModule();
         return MaterialPageRoute(builder: (_) => const LoginView());
       case Routes.registerRoute:
+        initRegisterModule();
         return MaterialPageRoute(builder: (_) => const RegisterView());
       case Routes.forgotPasswordRoute:
         initForgotModule();
         return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
       case Routes.mainRoute:
+        initHomeModule();
         return MaterialPageRoute(builder: (_) => const MainView());
       case Routes.storeDetailsRoute:
+        initStoreDetailsModule();
         return MaterialPageRoute(builder: (_) => const StoreDetailsView());
       default:
         return unDefinedRoute();
@@ -49,11 +53,11 @@ class RouteGenerator {
         builder: (_) => Scaffold(
           appBar: AppBar(
             title: const Text(
-                AppStrings.noRouteFound),
+                AppStrings.noRouteFound).tr(),
           ),
-          body: const Center(
-              child: Text(
-                  AppStrings.noRouteFound)),
+          body:  Center(
+              child: const Text(
+                  AppStrings.noRouteFound).tr()),
         ));
   }
 }
