@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_app/Presentation/onboarding/view/onboarding_view.dart';
 import 'package:flutter_mvvm_app/Presentation/resources/strings_manager.dart';
@@ -52,11 +53,11 @@ class RouteGenerator {
         builder: (_) => Scaffold(
           appBar: AppBar(
             title: const Text(
-                AppStrings.noRouteFound),
+                AppStrings.noRouteFound).tr(),
           ),
-          body: const Center(
-              child: Text(
-                  AppStrings.noRouteFound)),
+          body:  Center(
+              child: const Text(
+                  AppStrings.noRouteFound).tr()),
         ));
   }
 }
