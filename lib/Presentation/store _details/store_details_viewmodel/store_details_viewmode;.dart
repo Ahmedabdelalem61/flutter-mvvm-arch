@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ffi';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_mvvm_app/Domain/models/models.dart';
 import 'package:flutter_mvvm_app/Presentation/base/baseviewmodel.dart';
 import 'package:rxdart/subjects.dart';
@@ -8,6 +9,7 @@ import 'package:rxdart/subjects.dart';
 import '../../../Domain/usecase/store_details_usecase.dart';
 import '../../common/state_rendrer/state_renderer_imp.dart';
 import '../../common/state_rendrer/state_rendrer.dart';
+import '../../resources/strings_manager.dart';
 
 class StoreDetailsViewModel extends BaseViewModel
     with InputStoreDetailsViewModel, OutputStoreDetailsViewModel {
@@ -38,8 +40,8 @@ class StoreDetailsViewModel extends BaseViewModel
   getStoreDetails() async {
     stateInput.add(LoadingState(
         stateType: RendrerStateType.fullErrorState,
-        message: "loading...wait for seconds.",
-        title: 'loading...'));
+        message: AppStrings.loadingMessage.tr(),
+        title: AppStrings.loading.tr()));
 
     (await _storeDetailsUSeCase.execute(Void)).fold((failure) {
       stateInput.add(ErrorState(

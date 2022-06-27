@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_app/Domain/models/models.dart';
 import 'package:flutter_mvvm_app/Presentation/common/state_rendrer/state_renderer_imp.dart';
@@ -32,7 +33,7 @@ class _StoreDetailsViewState extends State<StoreDetailsView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(AppStrings.details),
+          title: const Text(AppStrings.details).tr(),
         ),
         backgroundColor: ColorManager.white,
         body: StreamBuilder<FlowState>(
@@ -65,11 +66,11 @@ class _StoreDetailsViewState extends State<StoreDetailsView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _getImage(snapshot.data!.image),
-                    _getSection(AppStrings.details),
+                    _getSection(AppStrings.details.tr()),
                     _getBody(snapshot.data!.details),
-                    _getSection(AppStrings.services),
+                    _getSection(AppStrings.services.tr()),
                     _getBody(snapshot.data!.services),
-                    _getSection(AppStrings.aboutStore),
+                    _getSection(AppStrings.aboutStore.tr()),
                     _getBody(snapshot.data!.about),
                   ]);
               }

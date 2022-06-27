@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_mvvm_app/App/app_prefs.dart';
 import 'package:flutter_mvvm_app/App/dependency_injection.dart';
 import 'package:flutter_mvvm_app/Presentation/base/baseviewmodel.dart';
 import 'package:flutter_mvvm_app/Presentation/common/state_rendrer/state_renderer_imp.dart';
 import 'package:flutter_mvvm_app/Presentation/common/state_rendrer/state_rendrer.dart';
+import 'package:flutter_mvvm_app/Presentation/resources/strings_manager.dart';
 import '../../../Domain/usecase/login_usecase.dart';
 import '../../common/freezed_data_classes.dart';
 
@@ -87,8 +89,8 @@ class LoginViewModel extends BaseViewModel
   login() async {
     stateInput.add(LoadingState(
       stateType: RendrerStateType.popupLoadingState,
-      message: "wait for seconds.",
-      title: 'loading...'
+      message: AppStrings.loadingMessage.tr(),
+      title: AppStrings.loading.tr()
     ));
     
     (await _loginUseCase.execute(

@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:ffi';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_mvvm_app/Domain/models/models.dart';
 import 'package:flutter_mvvm_app/Domain/usecase/home_usecase.dart';
 import 'package:flutter_mvvm_app/Presentation/base/baseviewmodel.dart';
+import 'package:flutter_mvvm_app/Presentation/resources/strings_manager.dart';
 import 'package:rxdart/subjects.dart';
 
 import '../../../../common/state_rendrer/state_renderer_imp.dart';
@@ -31,8 +33,8 @@ class HomeViewModel extends BaseViewModel
   _getHomeData() async {
     stateInput.add(LoadingState(
         stateType: RendrerStateType.fullErrorState,
-        message: "wait for seconds.",
-        title: 'loading...'));
+        message: AppStrings.loadingMessage.tr(),
+        title: AppStrings.loading.tr()));
 
     (await _homeUseCase.execute(Void)).fold((failure) {
       stateInput.add(ErrorState(
