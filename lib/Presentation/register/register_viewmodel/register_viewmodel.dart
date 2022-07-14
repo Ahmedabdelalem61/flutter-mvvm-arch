@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_mvvm_app/App/functions.dart';
 import 'package:flutter_mvvm_app/Domain/usecase/register_usecase.dart';
 import 'package:flutter_mvvm_app/Presentation/base/baseviewmodel.dart';
@@ -66,7 +67,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput , Regi
   // output streams
 
   @override
-  Stream<String?> get outputUserNameErrorStreamController =>  outputUserNameStreamControllerValid.map((userName) => userName?null:AppStrings.userNameInvalid);
+  Stream<String?> get outputUserNameErrorStreamController =>  outputUserNameStreamControllerValid.map((userName) => userName?null:AppStrings.userNameInvalid.tr());
   
   @override
   Stream<bool> get outputUserNameStreamControllerValid => userNameStreamControllerValid.stream.map((userName) => 
@@ -80,14 +81,14 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput , Regi
   Stream<bool> get outputEmailStreamControllerValid => emailStreamControllerValid.stream.map((email) => isEmailValid(email)); 
 
   @override
-  Stream<String?> get outPutEmailErrorStreamController => outputEmailStreamControllerValid.map((email) => email?null:AppStrings.emailInvalid);
+  Stream<String?> get outPutEmailErrorStreamController => outputEmailStreamControllerValid.map((email) => email?null:AppStrings.emailInvalid.tr());
 
 
   @override
   Stream<bool> get outputPasswordStreamControllerValid => passwordStreamControllerValid.stream.map((password) => _isPasswordValid(password));
 
   @override
-  Stream<String?> get outputPasswordErrorStreamController => outputPasswordStreamControllerValid.map((password) => password?null:AppStrings.passwordInvalid);
+  Stream<String?> get outputPasswordErrorStreamController => outputPasswordStreamControllerValid.map((password) => password?null:AppStrings.passwordInvalid.tr());
 
 
 
@@ -100,7 +101,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput , Regi
   Stream<bool> get outputPhoneNumberStreamControllerValid => phoneNumberStreamControllerValid.stream.map((phoneNumber) => _isPhoneNumberValid(phoneNumber));
    
    @override
-  Stream<String?> get outputPhoneNumberErrorStreamController => outputPhoneNumberStreamControllerValid.map((phone) => phone?null: AppStrings.phoneNumberInvalid);
+  Stream<String?> get outputPhoneNumberErrorStreamController => outputPhoneNumberStreamControllerValid.map((phone) => phone?null: AppStrings.phoneNumberInvalid.tr());
 
    bool _isPhoneNumberValid(String phoneNumber){
     return phoneNumber.length >= 10;
@@ -142,7 +143,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput , Regi
                 }, (data) {
       // right -> data (success)
       // content
-      stateInput.add(SuccessState(title: "Success", message: "you have registered Succesfully", stateType: RendrerStateType.popupSuccessState));
+      stateInput.add(SuccessState(title: AppStrings.success.tr(), message: AppStrings.registeredSucceefully.tr(), stateType: RendrerStateType.popupSuccessState));
       isUserRegisteredStreamController.add(true);
       //stateInput.add(ContentState());
       // navigate to main screen
